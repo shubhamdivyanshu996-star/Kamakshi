@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For Kamakshi ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #ffd6e7, #ddd6ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: #444;
+}
+
+/* Floating hearts */
+
+.heart {
+    position: fixed;
+    bottom: -30px;
+    font-size: 22px;
+    opacity: 0;
+    pointer-events: none;
+    animation: floatUp 7s linear infinite;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: .7;
+    }
+
+    100% {
+        transform: translateY(-110vh) rotate(25deg);
+        opacity: 0;
+    }
+}
+
+/* Main */
+
+.container {
+    width: 92%;
+    max-width: 440px;
+    text-align: center;
+}
+
+/* Envelope */
+
+.envelope {
+    width: 285px;
+    height: 185px;
+    margin: auto;
+    background: #f4a7c2;
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 18px 40px rgba(0,0,0,.18);
+    transition: .4s;
+}
+
+.envelope:hover {
+    transform: scale(1.04);
+}
+
+.envelope::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    border-left: 142px solid transparent;
+    border-right: 142px solid transparent;
+    border-bottom: 105px solid #e991b0;
+
+    z-index: 2;
+}
+
+.flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    border-left: 142px solid transparent;
+    border-right: 142px solid transparent;
+    border-top: 100px solid #df82a4;
+
+    transform-origin: top;
+    transition: .8s;
+    z-index: 5;
+}
+
+.envelope.open .flap {
+    transform: rotateX(180deg);
+}
+
+.envelope-text {
+    position: absolute;
+    width: 100%;
+    bottom: 32px;
+    z-index: 4;
+
+    font-size: 21px;
+    font-weight: bold;
+    color: #743d55;
+}
+
+.open-text {
+    margin-top: 20px;
+    color: #75475d;
+}
+
+/* Letter */
+
+.letter {
+    display: none;
+
+    background: rgba(255,255,255,.96);
+    padding: 25px 22px;
+
+    border-radius: 22px;
+
+    box-shadow: 0 18px 45px rgba(0,0,0,.16);
+
+    animation: appear .7s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(.94);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Slides */
+
+.slide {
+    display: none;
+    min-height: 310px;
+}
+
+.slide.active {
+    display: block;
+    animation: slideIn .45s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(35px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.big {
+    font-size: 48px;
+    margin: 5px;
+}
+
+h1 {
+    color: #d25680;
+    font-size: 30px;
+}
+
+h2 {
+    color: #d25680;
+}
+
+p {
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.highlight {
+    color: #d25680;
+    font-weight: bold;
+}
+
+.final {
+    font-size: 20px;
+    color: #d25680;
+    font-weight: bold;
+}
+
+/* Buttons */
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+}
+
+button {
+    border: none;
+    padding: 11px 18px;
+
+    border-radius: 25px;
+
+    background: #e88cab;
+    color: white;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: .25s;
+}
+
+button:hover {
+    transform: scale(1.06);
+}
+
+button:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+.counter {
+    font-size: 13px;
+    color: #888;
+}
+
+/* Choice buttons */
+
+.choice-area {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+}
+
+.choice {
+    padding: 12px 18px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    background: #e88cab;
+    color: white;
+}
+
+.choice.time {
+    background: #b49ad8;
+}
+
+/* Response */
+
+#response {
+    display: none;
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Floating hearts -->
+
+<div class="heart" style="left:8%; animation-delay:0s;">♡</div>
+<div class="heart" style="left:23%; animation-delay:2s;">♥</div>
+<div class="heart" style="left:40%; animation-delay:4s;">♡</div>
+<div class="heart" style="left:60%; animation-delay:1s;">♥</div>
+<div class="heart" style="left:78%; animation-delay:3s;">♡</div>
+<div class="heart" style="left:90%; animation-delay:5s;">♥</div>
+
+
+<div class="container">
+
+    <!-- ENVELOPE -->
+
+    <div id="envelope"
+         class="envelope"
+         onclick="openLetter()">
+
+        <div class="flap"></div>
+
+        <div class="envelope-text">
+            For Kamakshi 💌
+        </div>
+
+    </div>
+
+    <div id="openText" class="open-text">
+        Tap the envelope ✨
+    </div>
+
+
+    <!-- LETTER -->
+
+    <div id="letter" class="letter">
+
+
+        <!-- SLIDE 1 -->
+
+        <div class="slide active">
+
+            <div class="big">💌</div>
+
+            <h1>Hey Kamakshi...</h1>
+
+            <p>
+                I made this little thing because there
+                are some words I've been wanting to say.
+                <br><br>
+
+                So... just give me a few slides. 😅
+            </p>
+
+        </div>
+
+
+        <!-- SLIDE 2 -->
+
+        <div class="slide">
+
+            <div class="big">✨</div>
+
+            <h2>Somewhere along the way...</h2>
+
+            <p>
+                You became someone really special to me.
+                <br><br>
+
+                I started looking forward to our
+                conversations and enjoying the little
+                moments we share.
+            </p>
+
+        </div>
+
+
+        <!-- SLIDE 3 -->
+
+        <div class="slide">
+
+            <div class="big">😊</div>
+
+            <h2>And honestly...</h2>
+
+            <p>
+                I really like having you in my life.
+                <br><br>
+
+                You're someone I genuinely enjoy
+                talking to, laughing with and
+                spending time around.
+            </p>
+
+        </div>
+
+
+        <!-- SLIDE 4 -->
+
+        <div class="slide">
+
+            <div class="big">❤️</div>
+
+            <h2>So here's the honest part...</h2>
+
+            <p>
+                I don't know exactly when it happened,
+                but somewhere along the way,
+                <br><br>
+
+                <span class="highlight">
+                I started liking you as more than just a friend.
+                </span>
+            </p>
+
+        </div>
+
+
+        <!-- SLIDE 5 -->
+
+        <div class="slide">
+
+            <div class="big">🌷</div>
+
+            <h2>I just wanted you to know</h2>
+
+            <p>
+                I'm not saying this expecting anything
+                from you.
+                <br><br>
+
+                I just wanted to be honest about how
+                I feel instead of keeping it to myself.
+            </p>
+
+        </div>
+
+
+        <!-- SLIDE 6 -->
+
+        <div class="slide">
+
+            <div class="big">🫶</div>
+
+            <h2>Your choice matters</h2>
+
+            <p>
+                Take your time and choose whatever
+                feels right for you.
+                <br><br>
+
+                There's absolutely no pressure.
+                <br><br>
+
+                <span class="highlight">
+                I will respect your decision either way.
+                </span>
+            </p>
+
+        </div>
+
+
+        <!-- SLIDE 7 -->
+
+        <div class="slide">
+
+            <div class="big">💗</div>
+
+            <p class="final">
+
+                It's completely okay if you don't
+                feel the same way—no worries at all.
+
+                <br><br>
+
+                I'll respect whatever you choose.
+
+                <br><br>
+
+                And no matter what your answer is,
+                I hope we'll continue to be great friends
+                in the future,
+
+                <br><br>
+
+                just like we are today. 🤝✨
+
+            </p>
+
+        </div>
+
+
+        <!-- SLIDE 8 -->
+
+        <div class="slide">
+
+            <div class="big">🌸</div>
+
+            <h2>So... what do you feel?</h2>
+
+            <p>
+                There's no wrong answer.
+                <br><br>
+
+                Just be honest with me.
+                That's all I ask. ❤️
+            </p>
+
+            <div class="choice-area">
+
+                <button class="choice"
+                        onclick="showResponse('Thank you for being honest. ❤️ I’m really happy you feel the same.')">
+                    I feel the same ❤️
+                </button>
+
+                <button class="choice time"
+                        onclick="showResponse('Of course. Take all the time you need. 🌸 There is absolutely no pressure.')">
+                    I need some time 🌸
+                </button>
+
+                <button class="choice"
+                        onclick="showResponse('It’s completely okay. ❤️ I respect your feelings, and our friendship still matters to me.')">
+                    I don't feel the same 🤍
+                </button>
+
+            </div>
+
+            <p id="response"></p>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <div class="navigation">
+
+            <button id="prevBtn"
+                    onclick="previousSlide()"
+                    disabled>
+                ← Previous
+            </button>
+
+            <span id="counter" class="counter">
+                1 / 8
+            </span>
+
+            <button id="nextBtn"
+                    onclick="nextSlide()">
+                Next →
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let currentSlide = 0;
+
+const slides = document.querySelectorAll(".slide");
+
+const prevBtn =
+    document.getElementById("prevBtn");
+
+const nextBtn =
+    document.getElementById("nextBtn");
+
+const counter =
+    document.getElementById("counter");
+
+
+function openLetter() {
+
+    const envelope =
+        document.getElementById("envelope");
+
+    const letter =
+        document.getElementById("letter");
+
+    const openText =
+        document.getElementById("openText");
+
+    envelope.classList.add("open");
+
+    setTimeout(() => {
+
+        envelope.style.display = "none";
+
+        openText.style.display = "none";
+
+        letter.style.display = "block";
+
+    }, 800);
+}
+
+
+function showSlide(index) {
+
+    slides.forEach(slide => {
+        slide.classList.remove("active");
+    });
+
+    slides[index].classList.add("active");
+
+    counter.textContent =
+        (index + 1) + " / " + slides.length;
+
+    prevBtn.disabled = index === 0;
+
+    nextBtn.disabled =
+        index === slides.length - 1;
+}
+
+
+function nextSlide() {
+
+    if (currentSlide < slides.length - 1) {
+
+        currentSlide++;
+
+        showSlide(currentSlide);
+
+    }
+}
+
+
+function previousSlide() {
+
+    if (currentSlide > 0) {
+
+        currentSlide--;
+
+        showSlide(currentSlide);
+
+    }
+}
+
+
+function showResponse(message) {
+
+    const response =
+        document.getElementById("response");
+
+    response.innerHTML = message;
+
+    response.style.display = "block";
+}
+
+
+/* Keyboard navigation */
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "ArrowRight") {
+        nextSlide();
+    }
+
+    if (event.key === "ArrowLeft") {
+        previousSlide();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
